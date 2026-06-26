@@ -136,7 +136,8 @@ function getPageUrl() {
 
 function shareButtons(dog) {
   const text = getShareText(dog);
-  const url = getPageUrl();
+  const safeId = (dog.id || '').replace(/\//g, '-');
+  const url = encodeURIComponent(`https://noheelerleftbehind.github.io/UrgentHeelers/dogs/${safeId}.html`);
   const igLink = dog.igLink || '';
   return `
     <a class="share-btn btn-x" href="https://twitter.com/intent/tweet?text=${text}&url=${url}" target="_blank" rel="noopener">𝕏 Post</a>
