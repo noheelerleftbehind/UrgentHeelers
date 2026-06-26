@@ -7,27 +7,30 @@
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #222; }
-  header { background: #c0392b; color: white; padding: 20px 24px; text-align: center; }
+  header { background: #0099cc; color: white; padding: 20px 24px; text-align: center; }
   header h1 { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
   header p { font-size: 0.9rem; opacity: 0.85; margin-top: 4px; }
   .filters { background: white; padding: 14px 20px; display: flex; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 10; }
   .filters input, .filters select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem; flex: 1; min-width: 140px; }
-  .filters input:focus, .filters select:focus { outline: none; border-color: #c0392b; }
+  .filters input:focus, .filters select:focus { outline: none; border-color: #0099cc; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; padding: 20px; max-width: 1200px; margin: 0 auto; }
   .card { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.15s, box-shadow 0.15s; cursor: pointer; }
   .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.13); }
-  .card-img { width: 100%; height: 200px; object-fit: cover; background: #eee; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.85rem; }
+  .card-img { width: 100%; height: 200px; background: #e8f4f8; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.85rem; overflow: hidden; }
   .card-img img { width: 100%; height: 200px; object-fit: cover; }
   .card-body { padding: 14px; }
-  .urgent-badge { display: inline-block; background: #c0392b; color: white; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .urgent-badge { display: inline-block; background: #e74c3c; color: white; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
   .card-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
-  .card-meta { font-size: 0.82rem; color: #666; margin-bottom: 10px; line-height: 1.5; }
-  .card-id { font-size: 0.78rem; color: #999; font-family: monospace; margin-bottom: 12px; }
-  .share-row { display: flex; gap: 6px; flex-wrap: wrap; }
-  .share-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: opacity 0.15s; }
+  .card-meta { font-size: 0.82rem; color: #666; margin-bottom: 6px; line-height: 1.5; }
+  .card-id { font-size: 0.78rem; color: #999; font-family: monospace; margin-bottom: 8px; }
+  .card-notes { font-size: 0.8rem; color: #444; background: #f0f8ff; border-left: 3px solid #0099cc; padding: 6px 10px; border-radius: 0 6px 6px 0; margin-bottom: 10px; line-height: 1.4; }
+  .read-more { font-size: 0.78rem; color: #0099cc; font-weight: 600; margin-bottom: 10px; cursor: pointer; display: inline-block; }
+  .share-row { display: flex; gap: 5px; flex-wrap: wrap; }
+  .share-btn { display: inline-flex; align-items: center; gap: 4px; padding: 5px 9px; border-radius: 8px; font-size: 0.72rem; font-weight: 600; text-decoration: none; border: none; cursor: pointer; transition: opacity 0.15s; white-space: nowrap; }
   .share-btn:hover { opacity: 0.82; }
   .btn-x { background: #000; color: white; }
   .btn-fb { background: #1877f2; color: white; }
+  .btn-reddit { background: #ff4500; color: white; }
   .btn-email { background: #6c757d; color: white; }
   .btn-text { background: #28a745; color: white; }
   .btn-pin { background: #e60023; color: white; }
@@ -37,19 +40,22 @@
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
   .modal { background: white; border-radius: 18px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; }
-  .modal-img { width: 100%; height: 260px; object-fit: cover; border-radius: 18px 18px 0 0; background: #eee; display: flex; align-items: center; justify-content: center; color: #aaa; }
+  .modal-img { width: 100%; height: 260px; background: #e8f4f8; display: flex; align-items: center; justify-content: center; color: #aaa; border-radius: 18px 18px 0 0; overflow: hidden; }
   .modal-img img { width: 100%; height: 260px; object-fit: cover; border-radius: 18px 18px 0 0; }
   .modal-body { padding: 20px; }
   .modal-name { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; }
-  .modal-detail { font-size: 0.9rem; color: #444; line-height: 1.7; margin-bottom: 16px; }
+  .modal-detail { font-size: 0.9rem; color: #444; line-height: 1.7; margin-bottom: 12px; }
   .modal-detail strong { color: #222; }
+  .modal-notes-block { margin: 12px 0; }
+  .modal-notes-block h4 { font-size: 0.78rem; font-weight: 700; color: #0099cc; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .modal-notes-block p { font-size: 0.88rem; color: #444; background: #f0f8ff; border-left: 3px solid #0099cc; padding: 8px 12px; border-radius: 0 6px 6px 0; line-height: 1.5; }
   .modal-share { margin-top: 16px; }
   .modal-share h3 { font-size: 0.85rem; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
   .modal-share-row { display: flex; gap: 8px; flex-wrap: wrap; }
   .modal-share-row .share-btn { padding: 10px 14px; font-size: 0.85rem; }
   .modal-close { float: right; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #999; margin-top: -4px; }
   footer { text-align: center; padding: 30px 20px; font-size: 0.8rem; color: #aaa; }
-  footer a { color: #c0392b; text-decoration: none; }
+  footer a { color: #0099cc; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -83,6 +89,7 @@
       <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
       <div class="modal-name" id="modalName"></div>
       <div class="modal-detail" id="modalDetail"></div>
+      <div id="modalNotes"></div>
       <div class="modal-share">
         <h3>Share to help this dog</h3>
         <div class="modal-share-row" id="modalShare"></div>
@@ -97,20 +104,20 @@
 
 <script>
 const dogs = [
-  { name: "Unnamed", urgency: "Urgent - Can be PTS after 06/23", id: "A551901", city: "Moreno Valley", state: "CA", shelter: "Moreno Valley Animal Services", sourceLink: "https://post.rescueme.org/26-06-16-00022", igLink: "" },
-  { name: "The King", urgency: "Urgent - 72hr", id: "A5784245", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Shelter (LA County)", sourceLink: "", igLink: "" },
-  { name: "Pink", urgency: "", id: "A5783218", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZ-tB6unUUE/" },
-  { name: "Mickey", urgency: "", id: "A845464", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ6Mz6ajBDD/" },
-  { name: "Gracie, Kitana, Reese", urgency: "", id: "A831945, A831946, A845334", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ79ubwDjFz/" },
-  { name: "Ghost", urgency: "Urgent - 72hr", id: "A5782953", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DaCSl60DdlN/" },
-  { name: "Robin", urgency: "", id: "A5780824", city: "Lancaster", state: "CA", shelter: "Lancaster Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZtdeS-BjTO/" },
-  { name: "Unnamed (Downey)", urgency: "", id: "26-11905", city: "Downey", state: "CA", shelter: "Downey Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZp2MYFjW4a/" },
-  { name: "Pawlie", urgency: "", id: "A5780493", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZrFDarB0oH/" },
-  { name: "Miller", urgency: "", id: "A845503", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ5eUSPnYOF/" },
-  { name: "Coco", urgency: "", id: "A5780758", city: "Lancaster", state: "CA", shelter: "Lancaster Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZohnkRBLw6/" },
-  { name: "Jell-O", urgency: "", id: "A844535", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ1oR2Bvx9u/" },
-  { name: "Domino & Bearson", urgency: "", id: "A5779350, A5779348", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZlodYuJCmE/" },
-  { name: "Darwin", urgency: "", id: "A594654", city: "San Bernardino", state: "CA", shelter: "ARC / East Valley Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DaBa1Y7yNJy/" }
+  { name: "Unnamed", urgency: "Urgent - Can be PTS after 06/23", id: "A551901", city: "Moreno Valley", state: "CA", shelter: "Moreno Valley Animal Services", sourceLink: "https://post.rescueme.org/26-06-16-00022", igLink: "", photo: "", tempNotes: "", medNotes: "" },
+  { name: "The King", urgency: "Urgent - 72hr", id: "A5784245", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Shelter (LA County)", sourceLink: "", igLink: "", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Pink", urgency: "", id: "A5783218", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZ-tB6unUUE/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Mickey", urgency: "", id: "A845464", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ6Mz6ajBDD/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Gracie, Kitana, Reese", urgency: "", id: "A831945, A831946, A845334", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ79ubwDjFz/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Ghost", urgency: "Urgent - 72hr", id: "A5782953", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DaCSl60DdlN/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Robin", urgency: "", id: "A5780824", city: "Lancaster", state: "CA", shelter: "Lancaster Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZtdeS-BjTO/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Unnamed (Downey)", urgency: "", id: "26-11905", city: "Downey", state: "CA", shelter: "Downey Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZp2MYFjW4a/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Pawlie", urgency: "", id: "A5780493", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZrFDarB0oH/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Miller", urgency: "", id: "A845503", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ5eUSPnYOF/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Coco", urgency: "", id: "A5780758", city: "Lancaster", state: "CA", shelter: "Lancaster Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZohnkRBLw6/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Jell-O", urgency: "", id: "A844535", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ1oR2Bvx9u/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Domino & Bearson", urgency: "", id: "A5779350, A5779348", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZlodYuJCmE/", photo: "", tempNotes: "", medNotes: "" },
+  { name: "Darwin", urgency: "", id: "A594654", city: "San Bernardino", state: "CA", shelter: "ARC / East Valley Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DaBa1Y7yNJy/", photo: "", tempNotes: "", medNotes: "" }
 ];
 
 function isUrgent(dog) {
@@ -134,10 +141,11 @@ function shareButtons(dog) {
   return `
     <a class="share-btn btn-x" href="https://twitter.com/intent/tweet?text=${text}&url=${url}" target="_blank" rel="noopener">𝕏 Post</a>
     <a class="share-btn btn-fb" href="https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}" target="_blank" rel="noopener">FB</a>
+    <a class="share-btn btn-reddit" href="https://www.reddit.com/submit?url=${url}&title=${text}" target="_blank" rel="noopener">Reddit</a>
     <a class="share-btn btn-pin" href="https://pinterest.com/pin/create/button/?url=${url}&description=${text}" target="_blank" rel="noopener">📌 Pin</a>
     <a class="share-btn btn-email" href="mailto:?subject=Urgent%20Dog%20Needs%20Help&body=${text}%20${url}" target="_blank" rel="noopener">✉ Email</a>
     <a class="share-btn btn-text" href="sms:?&body=${decodeURIComponent(text)}%20${decodeURIComponent(url)}" target="_blank" rel="noopener">💬 Text</a>
-    ${igLink ? `<a class="share-btn btn-ig" href="${igLink}" target="_blank" rel="noopener">📸 IG Thread</a>` : ''}
+    ${igLink ? `<a class="share-btn btn-ig" href="${igLink}" target="_blank" rel="noopener">📸 IG</a>` : ''}
   `;
 }
 
@@ -150,9 +158,13 @@ function renderCards(list) {
   }
   grid.innerHTML = list.map((dog, i) => {
     const urgent = isUrgent(dog);
-    const imgHtml = dog.igLink
-      ? `<div class="card-img"><img src="https://wsrv.nl/?url=${encodeURIComponent(dog.igLink)}&w=400&h=200&fit=cover" onerror="this.parentElement.innerHTML='<span>📸 View on Instagram</span>'" alt="${dog.name}"></div>`
+    const imgHtml = dog.photo
+      ? `<div class="card-img"><img src="photos/${dog.photo}" alt="${dog.name}"></div>`
       : `<div class="card-img"><span>🐾 No photo yet</span></div>`;
+    const hasNotes = dog.tempNotes || dog.medNotes;
+    const notesPreview = hasNotes
+      ? `<div class="card-notes">${[dog.tempNotes, dog.medNotes].filter(Boolean).join(' · ')}</div>`
+      : '';
     return `
       <div class="card" onclick="openModal(${i})">
         ${imgHtml}
@@ -160,8 +172,10 @@ function renderCards(list) {
           ${urgent ? '<span class="urgent-badge">⚠ Urgent</span>' : ''}
           <div class="card-name">${dog.name}</div>
           <div class="card-meta">${dog.city}, ${dog.state} · ${dog.shelter}</div>
-          ${dog.urgency ? `<div class="card-meta" style="color:#c0392b;font-weight:600">${dog.urgency}</div>` : ''}
+          ${dog.urgency ? `<div class="card-meta" style="color:#e74c3c;font-weight:600">${dog.urgency}</div>` : ''}
           <div class="card-id">ID: ${dog.id}</div>
+          ${notesPreview}
+          <span class="read-more">Read more →</span>
           <div class="share-row">${shareButtons(dog)}</div>
         </div>
       </div>
@@ -187,19 +201,28 @@ function filterDogs() {
 function openModal(idx) {
   const dog = filtered[idx];
   const urgent = isUrgent(dog);
+
   document.getElementById('modalName').innerHTML = (urgent ? '<span class="urgent-badge">⚠ Urgent</span><br>' : '') + dog.name;
+
   document.getElementById('modalDetail').innerHTML = `
     <strong>Shelter ID:</strong> ${dog.id}<br>
     <strong>Location:</strong> ${dog.city}, ${dog.state}<br>
     <strong>Shelter:</strong> ${dog.shelter}<br>
-    ${dog.urgency ? `<strong style="color:#c0392b">Status:</strong> <span style="color:#c0392b">${dog.urgency}</span><br>` : ''}
+    ${dog.urgency ? `<strong style="color:#e74c3c">Status:</strong> <span style="color:#e74c3c">${dog.urgency}</span><br>` : ''}
     ${dog.sourceLink ? `<strong>Listing:</strong> <a href="${dog.sourceLink}" target="_blank">View source</a><br>` : ''}
     ${dog.igLink ? `<strong>IG Thread:</strong> <a href="${dog.igLink}" target="_blank">View networking post</a><br>` : ''}
   `;
+
+  let notesHtml = '';
+  if (dog.tempNotes) notesHtml += `<div class="modal-notes-block"><h4>🐕 Temperament</h4><p>${dog.tempNotes}</p></div>`;
+  if (dog.medNotes) notesHtml += `<div class="modal-notes-block"><h4>🏥 Medical</h4><p>${dog.medNotes}</p></div>`;
+  document.getElementById('modalNotes').innerHTML = notesHtml;
+
   const imgEl = document.getElementById('modalImg');
-  imgEl.innerHTML = dog.igLink
-    ? `<img src="https://wsrv.nl/?url=${encodeURIComponent(dog.igLink)}&w=500&h=260&fit=cover" onerror="this.parentElement.innerHTML='<span style=padding:20px;color:#aaa>🐾 No photo available</span>'" alt="${dog.name}">`
+  imgEl.innerHTML = dog.photo
+    ? `<img src="photos/${dog.photo}" alt="${dog.name}">`
     : `<span style="padding:20px;color:#aaa">🐾 No photo yet</span>`;
+
   document.getElementById('modalShare').innerHTML = shareButtons(dog);
   document.getElementById('modal').classList.add('open');
 }
