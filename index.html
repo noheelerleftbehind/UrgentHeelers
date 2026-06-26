@@ -105,7 +105,7 @@
 <script>
 const dogs = [
   { name: "Unnamed", urgency: "Urgent - Can be PTS after 06/23", id: "A551901", city: "Moreno Valley", state: "CA", shelter: "Moreno Valley Animal Services", sourceLink: "https://post.rescueme.org/26-06-16-00022", igLink: "", photo: "", tempNotes: "", medNotes: "" },
-  { name: "The King", urgency: "Urgent - 72hr", id: "A5784245", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Shelter (LA County)", sourceLink: "", igLink: "", photo: "", tempNotes: "", medNotes: "" },
+  { name: "The King", urgency: "Urgent - 72hr", id: "A5784245", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Shelter (LA County)", sourceLink: "", igLink: "https://www.instagram.com/p/DaBatCYPwrX/", photo: "https://raw.githubusercontent.com/noheelerleftbehind/UrgentHeelers/main/photos/A5784245.jpg", tempNotes: "", medNotes: "" },
   { name: "Pink", urgency: "", id: "A5783218", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZ-tB6unUUE/", photo: "", tempNotes: "", medNotes: "" },
   { name: "Mickey", urgency: "", id: "A845464", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ6Mz6ajBDD/", photo: "", tempNotes: "", medNotes: "" },
   { name: "Gracie, Kitana, Reese", urgency: "", id: "A831945, A831946, A845334", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ79ubwDjFz/", photo: "", tempNotes: "", medNotes: "" },
@@ -159,8 +159,10 @@ function renderCards(list) {
   grid.innerHTML = list.map((dog, i) => {
     const urgent = isUrgent(dog);
     const imgHtml = dog.photo
-      ? `<div class="card-img"><img src="photos/${dog.photo}" alt="${dog.name}"></div>`
-      : `<div class="card-img"><span>🐾 No photo yet</span></div>`;
+      ? `<div class="card-img"><img src="${dog.photo}" alt="${dog.name}" onerror="this.parentElement.innerHTML='<span>🐾 No photo</span>'"></div>`
+      : dog.igLink
+        ? `<div class="card-img"><a href="${dog.igLink}" target="_blank" rel="noopener" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#0099cc;text-decoration:none;gap:6px"><svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24' fill='none' stroke='#0099cc' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect x='2' y='2' width='20' height='20' rx='5' ry='5'/><path d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z'/><line x1='17.5' y1='6.5' x2='17.51' y2='6.5'/></svg><span style='font-size:0.75rem;font-weight:600'>📷 View on Instagram</span></a></div>`
+        : `<div class="card-img"><span>🐾 No photo yet</span></div>`;
     const hasNotes = dog.tempNotes || dog.medNotes;
     const notesPreview = hasNotes
       ? `<div class="card-notes">${[dog.tempNotes, dog.medNotes].filter(Boolean).join(' · ')}</div>`
