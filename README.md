@@ -1,2 +1,2 @@
 # UrgentHeelers
-Heelers at risk now for euthanasia needing rescue, fosters, Pledges or adopters
+HEELERS in shelters at risk NOW for Euthanasia needing Rescue, Fosters, Pledges or Adopters
