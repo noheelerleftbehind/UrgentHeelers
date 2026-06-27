@@ -227,7 +227,7 @@ function openModal(idx) {
 
   const imgEl = document.getElementById('modalImg');
   imgEl.innerHTML = dog.photo
-    ? `<img src="photos/${dog.photo}" alt="${dog.name}">`
+    ? `<img src="${dog.photo}" alt="${dog.name}" style="width:100%;height:260px;object-fit:cover;border-radius:18px 18px 0 0;">`
     : `<span style="padding:20px;color:#aaa">🐾 No photo yet</span>`;
 
   document.getElementById('modalShare').innerHTML = shareButtons(dog);
