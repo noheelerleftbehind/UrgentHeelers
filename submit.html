@@ -31,10 +31,9 @@
     .url-hint{font-size:13px;color:#6e7681;margin-top:8px;line-height:1.6}
     .url-hint strong{color:#8b949e}
     .no-link-box{background:#1a1a2e;border:1px solid #30363d;border-radius:10px;padding:18px 20px;margin-top:16px;font-size:14px;color:#8b949e;line-height:1.7}
-    .no-link-box strong{color:#e6edf3;display:block;margin-bottom:6px;font-size:15px}
-    .no-link-box ol{padding-left:20px;margin-top:6px}
-    .no-link-box li{margin-bottom:4px}
-    .no-link-box a{color:#58a6ff}
+    .no-link-box strong{color:#e6edf3;display:block;margin-bottom:8px;font-size:15px}
+    .no-link-box .option{margin-bottom:14px;padding-left:12px;border-left:2px solid #30363d}
+    .no-link-box .option-label{color:#c9d1d9;font-weight:600;font-size:14px;margin-bottom:4px}
     .status-bar{display:none;align-items:center;gap:10px;background:#1f2937;border:1px solid #30363d;border-radius:8px;padding:12px 16px;margin-top:12px;font-size:15px}
     .status-bar.show{display:flex}
     .spinner{width:18px;height:18px;border:2px solid #30363d;border-top-color:#58a6ff;border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
@@ -104,17 +103,21 @@
       <div id="tempNote"></div>
     </div>
   </div>
+
   <div class="no-link-box">
-    <strong>Don't have a link yet?</strong>
-    A source link is required to submit. This keeps submissions verifiable and saves everyone time.<br><br>
-    If the dog isn't posted anywhere yet:
-    <ol>
-      <li>Post it yourself on <a href="https://www.instagram.com/" target="_blank">Instagram</a> or <a href="https://www.facebook.com/" target="_blank">Facebook</a> with the shelter ID and urgency info</li>
-      <li>Or send it to a networker like <a href="https://www.instagram.com/saveaheeler/" target="_blank">@saveaheeler</a> or <a href="https://www.instagram.com/savingdevoredogs/" target="_blank">@savingdevoredogs</a> and ask them to post it</li>
-      <li>Then come back here and paste that post URL</li>
-    </ol>
+    <strong>Don't have a link yet? Here's how to get one:</strong>
+    <div class="option">
+      <div class="option-label">If the dog has a shelter animal ID:</div>
+      Search that ID on Instagram or Facebook &mdash; networkers may have already posted it. If you find a post, paste that URL above.
+    </div>
+    <div class="option">
+      <div class="option-label">If no one has posted it yet, or there's no ID (small/rural shelter):</div>
+      Make your own post on Instagram or Facebook with: the shelter name and contact info, the deadline or urgency, any temp/behavior notes, and a photo if you have one. Then come back and paste that post URL above.
+    </div>
+    A source post is what makes the dog shareable and verifiable. Without it, there's nothing for networkers to amplify.
   </div>
 </div>
+
 <div class="form-section" id="formSection">
   <div class="section-label">Review &amp; confirm dog info</div>
   <div class="field-row">
@@ -160,10 +163,7 @@ function setStatus(msg,type){var b=document.getElementById("statusBar"),t=docume
 function lookupUrl(){
   var url=document.getElementById("sourceUrl").value.trim();
   if(!url){alert("Paste a URL first.");return;}
-  if(!isValidSource(url)){
-    setStatus("That URL is not from a supported source. Paste a link from Rescue Me, Petfinder, PetConnect, Instagram, or Facebook.","err");
-    return;
-  }
+  if(!isValidSource(url)){setStatus("That URL is not from a supported source. Paste a link from Rescue Me, Petfinder, PetConnect, Instagram, or Facebook.","err");return;}
   var btn=document.getElementById("lookupBtn");btn.disabled=true;btn.textContent="Looking...";
   setStatus("Fetching dog info from the listing...");
   var src=detectSource(url);
