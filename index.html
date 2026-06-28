@@ -59,6 +59,25 @@
   footer a { color: #0099cc; text-decoration: none; }
 
   @media (max-width: 600px) { .grid { grid-template-columns: 1fr; padding: 12px; } }
+
+  .header-submit-btn {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 11px 28px;
+    background: white;
+    color: #0099cc;
+    font-size: 0.95rem;
+    font-weight: 800;
+    border-radius: 30px;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+  }
+  .header-submit-btn:hover {
+    background: #e6f7fc;
+    transform: translateY(-1px);
+  }
 </style>
 </head>
 <body>
@@ -66,6 +85,7 @@
 <header>
   <h1>🐾 Urgent Heelers</h1>
   <p>Australian Cattle Dogs &amp; mixes facing euthanasia — help them find fosters &amp; rescues</p>
+  <a href="submit.html" class="header-submit-btn">🐾 Know a dog in danger? Submit them here</a>
 </header>
 
 <div class="filters">
