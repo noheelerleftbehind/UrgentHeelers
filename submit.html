@@ -10,8 +10,8 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;position:relative;font-size:18px;line-height:1.7}
     body::before{content:'';position:fixed;inset:0;background-image:url('images/heeler-bg.png');background-size:cover;background-position:center center;background-repeat:no-repeat;opacity:.35;z-index:0;pointer-events:none}
-    @media(max-width:600px){body::before{background-position:75% center}}
-    header,.hero,.url-wrap,.form-section,.email-alt,footer{position:relative;z-index:1}
+    @media(max-width:600px){body::before{background-position:25% center}}
+    header,.hero,.page-body,.email-alt,footer{position:relative;z-index:1}
     header{background:#161b22;border-bottom:1px solid #30363d;padding:16px 24px}
     header a{color:#58a6ff;text-decoration:none;font-size:16px}
     header a:hover{text-decoration:underline}
@@ -19,7 +19,24 @@
     .hero h1{font-size:26px;font-weight:800;color:#e6edf3;margin-bottom:10px}
     .hero p{color:#8b949e;font-size:16px;max-width:560px;margin:0 auto 8px;line-height:1.6}
     .breed-note{display:inline-block;background:#1f3a5f;border:1px solid #388bfd;color:#79c0ff;font-size:14px;padding:5px 14px;border-radius:20px;margin-top:10px}
-    .url-wrap{padding:0 24px;max-width:660px;margin-left:auto;margin-right:5%}
+
+    /* Push all content to the right half so heeler face shows on the left */
+    .page-body{
+      display:flex;
+      justify-content:flex-end;
+      padding:0 0 80px 0;
+    }
+    .content-col{
+      width:100%;
+      max-width:660px;
+      margin-right:4%;
+      padding:0 20px;
+    }
+    @media(max-width:900px){
+      .page-body{justify-content:center;}
+      .content-col{margin-right:0;max-width:660px;}
+    }
+
     .url-box{background:#161b22;border:2px solid #388bfd;border-radius:12px;padding:24px;margin:28px 0 0}
     .url-box-label{font-size:13px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#58a6ff;display:block;margin-bottom:10px}
     .url-row{display:flex;gap:10px}
@@ -54,8 +71,6 @@
     .urgency-badge{display:inline-block;background:#f85149;color:white;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase}
     .temp-note{background:#2d1f00;border:1px solid #d29922;border-radius:6px;padding:10px 14px;font-size:13px;color:#d29922;margin-top:12px;line-height:1.5}
     .social-note{background:#1a2332;border:1px solid #388bfd;border-radius:6px;padding:10px 14px;font-size:13px;color:#79c0ff;margin-top:12px;line-height:1.5}
-    .form-section{display:none;max-width:660px;margin-left:auto;margin-right:5%;padding:0 24px 80px}
-    .form-section.show{display:block}
     .section-label{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#58a6ff;margin:28px 0 14px;padding-bottom:8px;border-bottom:1px solid #21262d}
     .field{margin-bottom:18px}
     .field label{display:block;font-size:15px;font-weight:600;color:#c9d1d9;margin-bottom:5px}
@@ -87,71 +102,76 @@
   <p>Paste a link from Rescue Me, Petfinder, PetConnect, Instagram, or Facebook.<br>A source link is required &mdash; it is how we verify the dog and build the share kit.</p>
   <span class="breed-note">ACD / Blue Heeler / Red Heeler / Cattle Dog mixes only &middot; Municipal shelters only</span>
 </div>
-<div class="url-wrap">
-  <div class="url-box">
-    <span class="url-box-label">&#x1F4CE; Paste the listing or social post URL</span>
-    <div class="url-row">
-      <input type="url" id="sourceUrl" placeholder="https://post.rescueme.org/... or instagram.com/p/..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-      <button id="lookupBtn" onclick="lookupUrl()">Look up &rarr;</button>
-    </div>
-    <div class="url-hint">Works with: <strong>Rescue Me</strong> &middot; <strong>Petfinder</strong> &middot; <strong>PetConnect</strong> &middot; <strong>Instagram</strong> &middot; <strong>Facebook</strong></div>
-    <div class="status-bar" id="statusBar"><div class="spinner" id="spinner"></div><span id="statusText">Looking up dog info...</span></div>
-    <div class="preview-card" id="previewCard">
-      <h3>Found &mdash; review before submitting</h3>
-      <div id="previewPhoto"></div>
-      <div class="preview-grid" id="previewGrid"></div>
-      <div id="tempNote"></div>
-    </div>
-  </div>
 
-  <div class="no-link-box">
-    <strong>Don't have a link yet? Here's how to get one:</strong>
-    <div class="option">
-      <div class="option-label">If the dog has a shelter animal ID:</div>
-      Search that ID on Instagram or Facebook &mdash; networkers may have already posted it. If you find a post, paste that URL above.
+<div class="page-body">
+  <div class="content-col">
+    <div class="url-box">
+      <span class="url-box-label">&#x1F4CE; Paste the listing or social post URL</span>
+      <div class="url-row">
+        <input type="url" id="sourceUrl" placeholder="https://post.rescueme.org/... or instagram.com/p/..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button id="lookupBtn" onclick="lookupUrl()">Look up &rarr;</button>
+      </div>
+      <div class="url-hint">Works with: <strong>Rescue Me</strong> &middot; <strong>Petfinder</strong> &middot; <strong>PetConnect</strong> &middot; <strong>Instagram</strong> &middot; <strong>Facebook</strong></div>
+      <div class="status-bar" id="statusBar"><div class="spinner" id="spinner"></div><span id="statusText">Looking up dog info...</span></div>
+      <div class="preview-card" id="previewCard">
+        <h3>Found &mdash; review before submitting</h3>
+        <div id="previewPhoto"></div>
+        <div class="preview-grid" id="previewGrid"></div>
+        <div id="tempNote"></div>
+      </div>
     </div>
-    <div class="option">
-      <div class="option-label">If no one has posted it yet, or there's no ID (small/rural shelter):</div>
-      Make your own post on Instagram or Facebook with: the shelter name and contact info, the deadline or urgency, any temp/behavior notes, and a photo if you have one. Then come back and paste that post URL above.
+
+    <div class="no-link-box">
+      <strong>Don't have a link yet? Here's how to get one:</strong>
+      <div class="option">
+        <div class="option-label">If the dog has a shelter animal ID:</div>
+        Search that ID on Instagram or Facebook &mdash; networkers may have already posted it. If you find a post, paste that URL above.
+      </div>
+      <div class="option">
+        <div class="option-label">If no one has posted it yet, or there's no ID (small/rural shelter):</div>
+        Make your own post on Instagram or Facebook with: the shelter name and contact info, the deadline or urgency, any temp/behavior notes, and a photo if you have one. Then come back and paste that post URL above.
+      </div>
+      A source post is what makes the dog shareable and verifiable. Without it, there's nothing for networkers to amplify.
     </div>
-    A source post is what makes the dog shareable and verifiable. Without it, there's nothing for networkers to amplify.
+
+    <!-- Form section -->
+    <div id="formSection" style="display:none">
+      <div class="section-label">Review &amp; confirm dog info</div>
+      <div class="field-row">
+        <div class="field"><label>Dog name <span class="opt">(if known)</span></label><input type="text" id="dogName" placeholder="e.g. Vato"></div>
+        <div class="field"><label>Shelter Animal ID <span class="opt">(if known)</span></label><input type="text" id="animalId" placeholder="e.g. A552204"><div class="hint">Leave blank if not found &mdash; we will flag it for lookup.</div></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>City <span class="req">*</span></label><input type="text" id="dogCity" placeholder="e.g. Moreno Valley"></div>
+        <div class="field"><label>State <span class="req">*</span></label><input type="text" id="dogState" placeholder="e.g. CA" maxlength="2" style="text-transform:uppercase"></div>
+      </div>
+      <div class="field"><label>Shelter name <span class="req">*</span></label><input type="text" id="shelterName" placeholder="e.g. Moreno Valley Animal Services"></div>
+      <div class="field"><label>Urgency / deadline <span class="opt">(if known)</span></label><input type="text" id="urgency" placeholder="e.g. Urgent - Can be PTS after 07/10"></div>
+      <div class="section-label">Source links</div>
+      <div class="field">
+        <label>Source URL <span class="req">*</span></label>
+        <input type="url" id="sourceUrlField" placeholder="Rescue Me / Petfinder / Instagram / Facebook link" readonly style="background:#0d1117;color:#8b949e;cursor:default">
+        <div class="hint">Pulled from the link you pasted above.</div>
+      </div>
+      <div class="field"><label>Instagram networking post <span class="opt">(if someone already posted this dog)</span></label><input type="url" id="igLink" placeholder="https://instagram.com/p/..."></div>
+      <div class="field"><label>Photo URL <span class="opt">(if we missed it)</span></label><input type="url" id="photoUrl" placeholder="Direct link to a photo of the dog"><div class="hint">We try to pull this automatically. Paste a direct image link if we missed it.</div></div>
+      <div class="section-label">Notes <span style="font-size:12px;color:#6e7681;font-weight:400;text-transform:none;letter-spacing:0">(optional but helpful)</span></div>
+      <div class="field"><label>Behavior / temp notes</label><textarea id="tempNotes" placeholder="e.g. Dog-friendly, house trained, anxious in shelter, walks well on leash"></textarea></div>
+      <div class="field"><label>Medical notes</label><textarea id="medNotes" placeholder="e.g. HW+, needs neuter, vaccinations current"></textarea></div>
+      <div class="section-label">Your info <span style="font-size:12px;color:#6e7681;font-weight:400;text-transform:none;letter-spacing:0">&mdash; so we can send you the live link + share kit</span></div>
+      <div class="field-row">
+        <div class="field"><label>Your name <span class="opt">(optional)</span></label><input type="text" id="submitterName" placeholder="First name is fine"></div>
+        <div class="field"><label>Your email <span class="opt">(optional)</span></label><input type="email" id="submitterEmail" placeholder="you@example.com"></div>
+      </div>
+      <button class="submit-btn" id="submitBtn" onclick="submitDog()">Submit this dog</button>
+      <div class="success-msg" id="successMsg">
+        <h2>Submitted!</h2>
+        <p>We have got it. The dog will be verified and posted to the site shortly.<br>If you left your email, we will send you the live link and a pre-written share kit.<br><br><a href="index.html" style="color:#58a6ff;">&larr; Back to urgent dogs</a></p>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="form-section" id="formSection">
-  <div class="section-label">Review &amp; confirm dog info</div>
-  <div class="field-row">
-    <div class="field"><label>Dog name <span class="opt">(if known)</span></label><input type="text" id="dogName" placeholder="e.g. Vato"></div>
-    <div class="field"><label>Shelter Animal ID <span class="opt">(if known)</span></label><input type="text" id="animalId" placeholder="e.g. A552204"><div class="hint">Leave blank if not found &mdash; we will flag it for lookup.</div></div>
-  </div>
-  <div class="field-row">
-    <div class="field"><label>City <span class="req">*</span></label><input type="text" id="dogCity" placeholder="e.g. Moreno Valley"></div>
-    <div class="field"><label>State <span class="req">*</span></label><input type="text" id="dogState" placeholder="e.g. CA" maxlength="2" style="text-transform:uppercase"></div>
-  </div>
-  <div class="field"><label>Shelter name <span class="req">*</span></label><input type="text" id="shelterName" placeholder="e.g. Moreno Valley Animal Services"></div>
-  <div class="field"><label>Urgency / deadline <span class="opt">(if known)</span></label><input type="text" id="urgency" placeholder="e.g. Urgent - Can be PTS after 07/10"></div>
-  <div class="section-label">Source links</div>
-  <div class="field">
-    <label>Source URL <span class="req">*</span></label>
-    <input type="url" id="sourceUrlField" placeholder="Rescue Me / Petfinder / Instagram / Facebook link" readonly style="background:#0d1117;color:#8b949e;cursor:default">
-    <div class="hint">Pulled from the link you pasted above.</div>
-  </div>
-  <div class="field"><label>Instagram networking post <span class="opt">(if someone already posted this dog)</span></label><input type="url" id="igLink" placeholder="https://instagram.com/p/..."></div>
-  <div class="field"><label>Photo URL <span class="opt">(if we missed it)</span></label><input type="url" id="photoUrl" placeholder="Direct link to a photo of the dog"><div class="hint">We try to pull this automatically. Paste a direct image link if we missed it.</div></div>
-  <div class="section-label">Notes <span style="font-size:12px;color:#6e7681;font-weight:400;text-transform:none;letter-spacing:0">(optional but helpful)</span></div>
-  <div class="field"><label>Behavior / temp notes</label><textarea id="tempNotes" placeholder="e.g. Dog-friendly, house trained, anxious in shelter, walks well on leash"></textarea></div>
-  <div class="field"><label>Medical notes</label><textarea id="medNotes" placeholder="e.g. HW+, needs neuter, vaccinations current"></textarea></div>
-  <div class="section-label">Your info <span style="font-size:12px;color:#6e7681;font-weight:400;text-transform:none;letter-spacing:0">&mdash; so we can send you the live link + share kit</span></div>
-  <div class="field-row">
-    <div class="field"><label>Your name <span class="opt">(optional)</span></label><input type="text" id="submitterName" placeholder="First name is fine"></div>
-    <div class="field"><label>Your email <span class="opt">(optional)</span></label><input type="email" id="submitterEmail" placeholder="you@example.com"></div>
-  </div>
-  <button class="submit-btn" id="submitBtn" onclick="submitDog()">Submit this dog</button>
-  <div class="success-msg" id="successMsg">
-    <h2>Submitted!</h2>
-    <p>We have got it. The dog will be verified and posted to the site shortly.<br>If you left your email, we will send you the live link and a pre-written share kit.<br><br><a href="index.html" style="color:#58a6ff;">&larr; Back to urgent dogs</a></p>
-  </div>
-</div>
 <div class="email-alt">Questions? Email <a href="mailto:NHLBfosters@lindymail.ai">NHLBfosters@lindymail.ai</a></div>
 <footer><a href="index.html">No Heeler Left Behind</a> &middot; ACD/Heeler rescue network</footer>
 <script>
@@ -178,7 +198,7 @@ function scrapeRescueMe(url,cb){var sm=url.match(/\/([0-9]{2}-[0-9]{2}-[0-9]{2}-
 |<|URGENT|[0-9]{2}\/)/i),name=nM?nM[1].trim():"";if(name.toLowerCase().indexOf("urgent")>-1||name.length>40)name="";var cM=h.match(/([A-Za-z\s]+),\s*([A-Z]{2})\s*[0-9]{5}/),city=cM?cM[1].trim():"",state=cM?cM[2]:"",uM=h.match(/Can be PTS after [0-9\/]+/i)||h.match(/URGENT[^<
 ]{0,60}/i),urgency=uM?uM[0].replace(/<[^>]+>/g,"").trim():"";cb({animalId:animalId,name:name,city:city,state:state,shelter:"",urgency:urgency,photoUrl:photoUrl});}).catch(function(){cb({animalId:"",name:"",city:"",state:"",shelter:"",urgency:"",photoUrl:photoUrl});});}
 function populateForm(d,url){if(d.name)document.getElementById("dogName").value=d.name;if(d.animalId)document.getElementById("animalId").value=d.animalId;if(d.city)document.getElementById("dogCity").value=d.city;if(d.state)document.getElementById("dogState").value=d.state;if(d.shelter)document.getElementById("shelterName").value=d.shelter;if(d.urgency)document.getElementById("urgency").value=d.urgency;if(d.photoUrl)document.getElementById("photoUrl").value=d.photoUrl;document.getElementById("sourceUrlField").value=url;showForm();}
-function showForm(){var fs=document.getElementById("formSection");fs.className="form-section show";setTimeout(function(){fs.scrollIntoView({behavior:"smooth",block:"start"});},100);}
+function showForm(){var fs=document.getElementById("formSection");fs.style.display="block";setTimeout(function(){fs.scrollIntoView({behavior:"smooth",block:"start"});},100);}
 function showPreview(d){var card=document.getElementById("previewCard"),ph=document.getElementById("previewPhoto"),grid=document.getElementById("previewGrid"),tn=document.getElementById("tempNote");if(d.photoUrl){ph.innerHTML='<img src="'+d.photoUrl+'" class="preview-photo" onerror="this.parentElement.innerHTML='<div class=preview-placeholder>No photo found<\/div>'">';}else{ph.innerHTML='<div class="preview-placeholder">No photo found &mdash; we will pull one from the source<\/div>';}var rows=[["Name",d.name],["Animal ID",d.animalId],["City",d.city],["State",d.state],["Shelter",d.shelter]],h="";if(d.urgency)h+='<div class="pf" style="grid-column:1\/-1"><label>Urgency<\/label><span class="urgency-badge">'+d.urgency+'<\/span><\/div>';rows.forEach(function(r){h+='<div class="pf"><label>'+r[0]+'<\/label><span class="'+(r[1]?"":"missing")+'">'+(r[1]||"not found &mdash; fill in below")+'<\/span><\/div>';});grid.innerHTML=h;if(d.socialOnly){tn.innerHTML='<div class="social-note">Social post detected &mdash; fill in the shelter info below. We will extract the animal ID and photo from the post.<\/div>';}else if(!d.animalId){tn.innerHTML='<div class="temp-note">No shelter ID found in the listing. Add it below if you know it, or we will flag it for lookup.<\/div>';}else{tn.innerHTML="";}card.className="preview-card show";}
 function submitDog(){
   var city=document.getElementById("dogCity").value.trim(),state=document.getElementById("dogState").value.trim().toUpperCase(),shelter=document.getElementById("shelterName").value.trim(),sourceUrl=document.getElementById("sourceUrlField").value.trim();
