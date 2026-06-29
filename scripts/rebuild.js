@@ -99,7 +99,11 @@ async function main() {
   ).join(',\n');
 
   let html = fs.readFileSync('index.html','utf8');
-  html = html.replace(/const dogs = \[[\s\S]*?\];/, `const dogs = [\n${dogsJs}\n];`);
+  html = html.replace(
+  /const dogs = \[.*?\/\/ DOGS_START[\s\S]*?\/\/ DOGS_END\s*\];/,
+  `const dogs = [ // DOGS_START\n${dogsJs}\n]; // DOGS_END`
+);
+
   fs.writeFileSync('index.html', html, 'utf8');
   console.log(`Done — ${dogs.length} dogs written.`);
 }
