@@ -107,6 +107,8 @@
     <option value="CA">California</option>
     <option value="TX">Texas</option>
     <option value="OK">Oklahoma</option>
+    <option value="KS">Kansas</option>
+    <option value="GA">Georgia</option>
   </select>
   <select id="urgencyFilter" onchange="filterDogs()">
     <option value="">All Urgency</option>
@@ -157,7 +159,15 @@ const dogs = [
   { name: "Noah", urgency: "Urgent - Euthanasia Deadline 6/27 at 4 PM", id: "NOAH-HALL-GA", city: "Gainesville", state: "GA", shelter: "Hall County Animal Services", sourceLink: "https://www.instagram.com/p/DaGDNjyig2w/", igLink: "https://www.instagram.com/p/DaGDNjyig2w/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/NOAH-HALL-GA.jpg", tempNotes: "2 yr old. Dog-friendly, super sweet, super smart. No accidents in the house. Walks well on leash, treat motivated. Gives hugs by placing paws gently on arms. Adopted and returned through no fault of his own.", medNotes: "HW+ but 100% curable. Treatment paid for by nonprofit and administered at shelter." }
 ,
   { name: "", urgency: "Urgent - Can be PTS after 07/10", id: "A552204", city: "Moreno Valley", state: "CA", shelter: "Moreno Valley Animal Services", sourceLink: "https://post.rescueme.org/26-06-27-00032", igLink: "", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A552204.jpg", tempNotes: "Young adult male ACD mix, red ticked, ~40lbs. Needs neuter, vaccinations current.", medNotes: "" },
-  { name: "Vato", urgency: "Urgent - SE 06/28/2026", id: "A2249745", city: "Van Nuys", state: "CA", shelter: "East Valley Animal Care Center (LA Animal Services)", sourceLink: "https://post.rescueme.org/26-06-15-00197", igLink: "https://m.facebook.com/groups/841456119278642/permalink/27333221876342039/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A2249745.jpg", tempNotes: "Not coping in shelter — anxious, flighty, timid. Reactive to dogs in kennels.", medNotes: "Neutered, vaccinations current. 55lbs. Young adult male." }
+  { name: "Vato", urgency: "Urgent - SE 06/28/2026", id: "A2249745", city: "Van Nuys", state: "CA", shelter: "East Valley Animal Care Center (LA Animal Services)", sourceLink: "https://post.rescueme.org/26-06-15-00197", igLink: "https://m.facebook.com/groups/841456119278642/permalink/27333221876342039/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A2249745.jpg", tempNotes: "Not coping in shelter — anxious, flighty, timid. Reactive to dogs in kennels.", medNotes: "Neutered, vaccinations current. 55lbs. Young adult male." },
+  { name: "Bluey", urgency: "Urgent - surrender sibling group", id: "A5786029", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "https://www.instagram.com/p/DaJjl41uCyU/", igLink: "https://www.instagram.com/p/DaJjl41uCyU/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5786029.jpg", tempNotes: "1yo male, 35lbs. Whiter face. Part of a 10-sibling surrender group being brought in slowly as the shelter is packed.", medNotes: "" },
+  { name: "Mickey", urgency: "Urgent - surrender sibling group", id: "A5786033", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "https://www.instagram.com/p/DaJjl41uCyU/", igLink: "https://www.instagram.com/p/DaJjl41uCyU/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5786029.jpg", tempNotes: "1yo male, 36lbs. Bluey's brother. Part of a 10-sibling surrender group.", medNotes: "" },
+  { name: "", urgency: "Urgent", id: "A188423", city: "Wichita", state: "KS", shelter: "Wichita Police Department Animal Shelter", sourceLink: "https://24petconnect.com/DetailsMain/WCHT/A188423", igLink: "https://www.instagram.com/p/DaBWuwcHWvW/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A188423.jpg", tempNotes: "Male, young adult, intact. Intake June 19. Available NOW. Vet clinic can tag/hold: email A188423 to Rescue@KsHumane.org.", medNotes: "" },
+  { name: "Kody", urgency: "Urgent", id: "61139090", city: "Haslet", state: "TX", shelter: "", sourceLink: "", igLink: "https://www.instagram.com/p/DZnZPnenXIm/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/61139090.jpg", tempNotes: "", medNotes: "" },
+  { name: "Blue Girl", urgency: "Urgent", id: "A033896", city: "San Benito", state: "TX", shelter: "", sourceLink: "", igLink: "https://www.instagram.com/p/DZdqoFaHVs7/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A033896.jpg", tempNotes: "", medNotes: "" },
+  { name: "Prescott", urgency: "Urgent", id: "PRESCOTT-STILLWATER-OK", city: "Stillwater", state: "OK", shelter: "Stillwater Animal Welfare", sourceLink: "", igLink: "https://www.instagram.com/p/DZlmQtdjJ4I/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/PRESCOTT-STILLWATER-OK.jpg", tempNotes: "", medNotes: "" },
+  { name: "Lincoln", urgency: "Urgent", id: "LINCOLN-NEWCASTLE-OK", city: "Newcastle", state: "OK", shelter: "Newcastle Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZd0OljDAMQ/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/LINCOLN-NEWCASTLE-OK.jpg", tempNotes: "", medNotes: "" },
+  { name: "Noah", urgency: "Urgent - Euthanasia Deadline 6/27 at 4 PM", id: "NOAH-HALL-GA", city: "Gainesville", state: "GA", shelter: "Hall County Animal Services", sourceLink: "https://www.instagram.com/p/DaGDNjyig2w/", igLink: "https://www.instagram.com/p/DaGDNjyig2w/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/NOAH-HALL-GA.jpg", tempNotes: "2 yr old. Dog-friendly, super sweet, super smart. No accidents in the house. Walks well on leash, treat motivated. Gives hugs by placing paws gently on arms. Adopted and returned through no fault of his own.", medNotes: "HW+ but 100% curable. Treatment paid for by nonprofit and administered at shelter." }
 ];
 
 function isUrgent(dog) {
@@ -279,10 +289,6 @@ function closeModal(e) {
 
 dogs.sort((a, b) => (isUrgent(b) ? 1 : 0) - (isUrgent(a) ? 1 : 0));
 renderCards(dogs);
-filtered = [...dogs,
-  { name: "Bluey", urgency: "Urgent - surrender sibling group", id: "A5786029", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "https://www.instagram.com/p/DaJjl41uCyU/", igLink: "https://www.instagram.com/p/DaJjl41uCyU/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5786029.jpg", tempNotes: "1yo male, 35lbs. Part of a 10-sibling surrender group being brought in slowly as the shelter is packed. Whiter face.", medNotes: "" },
-  { name: "Mickey", urgency: "Urgent - surrender sibling group", id: "A5786033", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "https://www.instagram.com/p/DaJjl41uCyU/", igLink: "https://www.instagram.com/p/DaJjl41uCyU/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5786029.jpg", tempNotes: "1yo male, 36lbs. Bluey's brother. Part of a 10-sibling surrender group.", medNotes: "" }
-];
 </script>
 </body>
 </html>
