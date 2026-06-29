@@ -279,7 +279,11 @@ function closeModal(e) {
 
 dogs.sort((a, b) => (isUrgent(b) ? 1 : 0) - (isUrgent(a) ? 1 : 0));
 renderCards(dogs);
-filtered = [...dogs];
+filtered = [...dogs,
+  { name: "Bluey", urgency: "Urgent - surrender sibling group", id: "A5786029", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "https://www.instagram.com/p/DaJjl41uCyU/", igLink: "https://www.instagram.com/p/DaJjl41uCyU/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5786029.jpg", tempNotes: "1yo male, 35lbs. Part of a 10-sibling surrender group being brought in slowly as the shelter is packed. Whiter face.", medNotes: "" },
+  { name: "Mickey", urgency: "Urgent - surrender sibling group", id: "A5786033", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "https://www.instagram.com/p/DaJjl41uCyU/", igLink: "https://www.instagram.com/p/DaJjl41uCyU/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5786029.jpg", tempNotes: "1yo male, 36lbs. Bluey's brother. Part of a 10-sibling surrender group.", medNotes: "" },
+  { name: "Huncho", urgency: "Urgent", id: "A5684591", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "https://www.instagram.com/p/DaJjl41uCyU/", igLink: "https://www.instagram.com/p//DaJjl41uCyU/", photo: "", tempNotes: "Kennel mate to Bluey and Mickey sibling group.", medNotes: "" }
+];
 </script>
 </body>
 </html>
