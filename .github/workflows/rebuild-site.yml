@@ -8,24 +8,19 @@ on:
 jobs:
   rebuild:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - run: npm install googleapis
-
-      - name: Rebuild site
-        env:
-          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+      - name: Rebuild site from Google Sheet CSV
         run: node scripts/rebuild.js
-
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html dogs/
+          git add index.html dogs/ photos/
           git diff --staged --quiet || git commit -m "Auto-rebuild from sheet [skip ci]"
           git push
