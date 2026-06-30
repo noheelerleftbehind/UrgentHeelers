@@ -158,7 +158,10 @@ async function main() {
       }
 
       for (const row of rows) {
-        const id = (row[C.id] || '').trim();
+        const rawId = (row[C.id] || '').trim();
+        const name = (row[C.name] || '').trim();
+        const rowState = (row[C.state] || '').trim();
+        const id = rawId || (name && rowState ? (name + '-' + rowState).replace(/[^a-zA-Z0-9-_]/g, '-') : '');
         if (!id || seen.has(id)) continue;
         seen.add(id);
 
