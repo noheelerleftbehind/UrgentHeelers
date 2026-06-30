@@ -1,8 +1,7 @@
-const { google } = require('googleapis');
-const fs = require('fs');
-const path = require('path');
 const https = require('https');
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 
 const SHEET_ID = '1k16DDd5JrVbb4mHI1fgsQnHY47RPffb9nhLoTIoCa8o';
 
@@ -15,7 +14,7 @@ const STATE_TABS = {
   'Oklahoma': 'OK',
   'Georgia': 'GA',
   'Kansas': 'KS',
-  'Mississippi': 'MS',
+  'Mississpi': 'MS',
   'Louisiana': 'LA',
   'Arkansas': 'AR',
   'Alabama': 'AL',
@@ -24,14 +23,47 @@ const STATE_TABS = {
   'Other States': 'US'
 };
 
+// Column indices (0-based, matching sheet columns A-N)
 const C = {
-  name: 0, urgency: 1, id: 2, city: 3, state: 4,
-  shelter: 5, sourceLink: 6, igLink: 7, photo: 8,
-  tempNotes: 9, medNotes: 10
+  name: 0, urgency: 1, status: 2, id: 3, city: 4, state: 5,
+  shelter: 6, sourceLink: 7, igLink: 8, fbLink: 9, xLink: 10,
+  tempNotes: 11, medNotes: 12, photo: 13
 };
 
 function esc(s) {
   return (s || '').replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n|\r/g, ' ');
+}
+
+function fetchCsv(tabName) {
+  return new Promise((resolve, reject) => {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tabName)}`;
+    https.get(url, (res) => {
+      if (res.statusCode === 301 || res.statusCode === 302) {
+        return fetchCsvUrl(res.headers.location).then(resolve).catch(reject);
+      }
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => resolve(data));
+    }).on('error', reject);
+  });
+}
+
+function parseCsv(csv) {
+  const lines = csv.trim().split('\n');
+  return lines.slice(1).map(line => {
+    const cols = [];
+    let inQuote = false, cur = '';
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"' && !inQuote) { inQuote = true; }
+      else if (ch === '"' && inQuote && line[i+1] === '"') { cur += '"'; i++; }
+      else if (ch === '"' && inQuote) { inQuote = false; }
+      else if (ch === ',' && !inQuote) { cols.push(cur); cur = ''; }
+      else { cur += ch; }
+    }
+    cols.push(cur);
+    return cols;
+  });
 }
 
 function downloadPhoto(url, dest) {
@@ -41,7 +73,12 @@ function downloadPhoto(url, dest) {
     const client = url.startsWith('https') ? https : http;
     const file = fs.createWriteStream(dest);
     client.get(url, (res) => {
-      if (res.statusCode !== 200) { file.close(); fs.unlinkSync(dest); return resolve(false); }
+      if (res.statusCode === 301 || res.statusCode === 302) {
+        file.close();
+        try { fs.unlinkSync(dest); } catch(e) {}
+        return downloadPhoto(res.headers.location, dest).then(resolve);
+      }
+      if (res.statusCode !== 200) { file.close(); try { fs.unlinkSync(dest); } catch(e){} return resolve(false); }
       res.pipe(file);
       file.on('finish', () => { file.close(); resolve(true); });
     }).on('error', () => { try { fs.unlinkSync(dest); } catch(e) {} resolve(false); });
@@ -104,13 +141,6 @@ ${d.igLink ? `<p><a href="${d.igLink}" target="_blank">View Instagram networking
 
 async function main() {
   try {
-    const creds = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
-    const auth = new google.auth.GoogleAuth({
-      credentials: creds,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly']
-    });
-    const sheets = google.sheets({ version: 'v4', auth });
-
     const dogs = [];
     const seen = new Set();
 
@@ -120,11 +150,8 @@ async function main() {
     for (const [tab, abbr] of Object.entries(STATE_TABS)) {
       let rows = [];
       try {
-        const res = await sheets.spreadsheets.values.get({
-          spreadsheetId: SHEET_ID,
-          range: `'${tab}'!A2:L`
-        });
-        rows = res.data.values || [];
+        const csv = await fetchCsv(tab);
+        rows = parseCsv(csv);
       } catch (e) {
         console.warn(`⚠️  Skip ${tab}: ${e.message}`);
         continue;
@@ -139,7 +166,6 @@ async function main() {
         const localPhoto = `photos/${safeId}.jpg`;
         const sheetPhotoUrl = (row[C.photo] || '').trim();
 
-        // Download photo if missing
         if (sheetPhotoUrl && !fs.existsSync(localPhoto)) {
           console.log(`📷 Downloading photo for ${id}...`);
           await downloadPhoto(sheetPhotoUrl, localPhoto);
@@ -164,23 +190,21 @@ async function main() {
         };
 
         dogs.push(d);
-
-        // Write dog detail page
         fs.writeFileSync(path.join('dogs', `${safeId}.html`), dogDetailPage(d), 'utf8');
+        console.log(`✓ ${id} — ${d.name || '(unnamed)'}`);
       }
     }
 
-    // Sort urgent first
+    // Sort urgent/eligible first
     dogs.sort((a, b) => {
-      const aU = a.urgency.toLowerCase().includes('urgent') ? 0 : 1;
-      const bU = b.urgency.toLowerCase().includes('urgent') ? 0 : 1;
+      const aU = /urgent|eligible/i.test(a.urgency) ? 0 : 1;
+      const bU = /urgent|eligible/i.test(b.urgency) ? 0 : 1;
       return aU - bU;
     });
 
-    // Build dogs array with clickable card link
     const dogsJs = dogs.map(d => {
       const safeId = d.id.replace(/[^a-zA-Z0-9-_]/g, '-');
-      return `  { name: "${esc(d.name)}", urgency: "${esc(d.urgency)}", id: "${esc(d.id)}", city: "${esc(d.city)}", state: "${esc(d.state)}", shelter: "${esc(d.shelter)}", sourceLink: "${esc(d.sourceLink)}", igLink: "${esc(d.igLink)}", photo: "${esc(d.photo)}", tempNotes: "${esc(d.tempNotes)}", medNotes: "${esc(d.medNotes)}", detailPage: "dogs/${safeId}.html" }`;
+      return `   { name: "${esc(d.name)}", urgency: "${esc(d.urgency)}", id: "${esc(d.id)}", city: "${esc(d.city)}", state: "${esc(d.state)}", shelter: "${esc(d.shelter)}", sourceLink: "${esc(d.sourceLink)}", igLink: "${esc(d.igLink)}", photo: "${esc(d.photo)}", tempNotes: "${esc(d.tempNotes)}", medNotes: "${esc(d.medNotes)}", detailPage: "dogs/${safeId}.html" }`;
     }).join(',\n');
 
     let html = fs.readFileSync('index.html', 'utf8');
@@ -190,7 +214,7 @@ async function main() {
     );
     fs.writeFileSync('index.html', html, 'utf8');
 
-    console.log(`✅ Done — ${dogs.length} dogs written to site.`);
+    console.log(`\n✅ Done — ${dogs.length} dogs written to site.`);
   } catch (e) {
     console.error('❌ Error:', e);
     process.exit(1);

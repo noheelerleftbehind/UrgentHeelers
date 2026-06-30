@@ -140,20 +140,39 @@
 </footer>
 
 <script>
-const dogs = [
-  { name: "Gracie, Kitana, Reese", urgency: "Eligible for euthanasia NOW", id: "Available", city: "A831945, A831946, A845334", state: "CA", shelter: "CA", sourceLink: "Devore Animal Shelter", igLink: "", photo: "https://www.instagram.com/p/DZ79ubwDjFz/", tempNotes: "", medNotes: "" },
-  { name: "Kody", urgency: "61139090", id: "Haslet", city: "TX", state: "TX", shelter: "", sourceLink: "https://www.instagram.com/p/DZnZPnenXIm/", igLink: "", photo: "", tempNotes: "", medNotes: "" },
-  { name: "Blue Girl", urgency: "A1291517", id: "San Benito", city: "TX", state: "TX", shelter: "", sourceLink: "https://www.instagram.com/p/DZdqoFaHVs7/", igLink: "", photo: "", tempNotes: "", medNotes: "" },
-  { name: "Daisy", urgency: "A1291520", id: "Dallas", city: "TX", state: "TX", shelter: "https://www.instagram.com/p/DaIygzqFgqK", sourceLink: "", igLink: "", photo: "", tempNotes: "", medNotes: "" },
-  { name: "Prescott", urgency: "", id: "Stillwater", city: "OK", state: "OK", shelter: "", sourceLink: "https://www.instagram.com/p/DZlmQtdjJ4I/", igLink: "", photo: "", tempNotes: "", medNotes: "" },
-  { name: "Lincoln", urgency: "", id: "Newcastle", city: "OK", state: "OK", shelter: "", sourceLink: "https://www.instagram.com/p/DZd0OljDAMQ/", igLink: "", photo: "", tempNotes: "", medNotes: "" },
-  { name: "Noah", urgency: "", id: "Gainesville", city: "GA", state: "GA", shelter: "https://www.instagram.com/p/DaGDNjyig2w/", sourceLink: "", igLink: "", photo: "", tempNotes: "", medNotes: "" },
-  { name: "Allie", urgency: "23674", id: "Monroe", city: "GA", state: "GA", shelter: "https://waltongaadoptions.multiop.com/Detail?id=37903", sourceLink: "", igLink: "", photo: "", tempNotes: "", medNotes: "" },
-  { name: "", urgency: "A188423", id: "Wichita", city: "KS", state: "KS", shelter: "https://24petconnect.com/DetailsMain/WCHT/A188423", sourceLink: "https://www.instagram.com/p/DaBWuwcHWvW/", igLink: "", photo: "", tempNotes: "", medNotes: "" }
+const dogs = [ // DOGS_START
+   { name: "Unnamed", urgency: "Urgent - Can be PTS after 06/23", id: "A551901", city: "Moreno Valley", state: "CA", shelter: "Moreno Valley Animal Services", sourceLink: "https://post.rescueme.org/26-06-16-00022", igLink: "", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A551901.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/A551901.html" },
+   { name: "Gracie, Kitana, Reese", urgency: "Eligible for euthanasia NOW", id: "A831945, A831946, A845334", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ79ubwDjFz/", photo: "", tempNotes: "", medNotes: "", detailPage: "dogs/A831945--A831946--A845334.html" },
+   { name: "Vato", urgency: "Urgent - SE 06/28/2026, last day 06/27", id: "A2249745", city: "Van Nuys", state: "CA", shelter: "East Valley Animal Care Center (LA Animal Services)", sourceLink: "https://post.rescueme.org/26-06-15-00197", igLink: "", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A2249745.jpg", tempNotes: "Not coping in shelter - anxious, flighty, timid. Reactive to dogs in kennels. Bite history: bit owner's daughter (didn't break skin), attempted bite on younger daughter.", medNotes: "Neutered, vaccinations current. 55lbs. Young adult male.", detailPage: "dogs/A2249745.html" },
+   { name: "Pikachu", urgency: "Eligible for euthanasia - LA County refuses to publish deadlines. Available June 29 or 30", id: "A5784750", city: "Lancaster", state: "CA", shelter: "Lancaster Animal Care Center", sourceLink: "https://animalcare.lacounty.gov/dacc-details/?animalId=A5784750", igLink: "https://www.instagram.com/p/DaE6hEHtB4X/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5784750.jpg", tempNotes: "Spicy then sweet. Male, 5-6 years old, 34 lbs. Intake June 22. Scared in shelter - fear not aggression.", medNotes: "", detailPage: "dogs/A5784750.html" },
+   { name: "The King", urgency: "", id: "A5784245", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Shelter (LA County)", sourceLink: "", igLink: "https://www.instagram.com/p/DaLyJvwHa3w/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5784245.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/A5784245.html" },
+   { name: "Pink", urgency: "", id: "A5783218", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZ-tB6unUUE/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5783218.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/A5783218.html" },
+   { name: "Mickey", urgency: "", id: "A845464", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ6Mz6ajBDD/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A845464.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/A845464.html" },
+   { name: "Robin", urgency: "", id: "A5780824", city: "Lancaster", state: "CA", shelter: "Lancaster Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZtdeS-BjTO/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5780824.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/A5780824.html" },
+   { name: "Unnamed (Downey)", urgency: "", id: "26-11905", city: "Downey", state: "CA", shelter: "Downey Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZp2MYFjW4a/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/26-11905.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/26-11905.html" },
+   { name: "Pawlie", urgency: "", id: "A5780493", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZrFDarB0oH/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5780493.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/A5780493.html" },
+   { name: "Miller", urgency: "", id: "A845503", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ5eUSPnYOF/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A845503.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/A845503.html" },
+   { name: "Coco", urgency: "", id: "A5780758", city: "Lancaster", state: "CA", shelter: "Lancaster Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZohnkRBLw6/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5780758.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/A5780758.html" },
+   { name: "Jell-O", urgency: "", id: "A844535", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DZ1oR2Bvx9u/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A844535.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/A844535.html" },
+   { name: "Domino & Bearson", urgency: "", id: "A5779350, A5779348", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DZlodYuJCmE/", photo: "", tempNotes: "", medNotes: "", detailPage: "dogs/A5779350--A5779348.html" },
+   { name: "Darwin", urgency: "", id: "A594654", city: "San Bernardino", state: "CA", shelter: "ARC / East Valley Shelter", sourceLink: "", igLink: "https://www.instagram.com/p/DaBa1Y7yNJy/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A594654.jpg", tempNotes: "", medNotes: "", detailPage: "dogs/A594654.html" },
+   { name: "", urgency: "", id: "A552204", city: "Moreno Valley", state: "CA", shelter: "Moreno Valley Animal Services", sourceLink: "https://post.rescueme.org/26-06-27-00032", igLink: "", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A552204.jpg", tempNotes: "", medNotes: "Needs neuter, vaccinations current. Young adult male ACD mix, red ticked, ~40lbs. URGENT after 07/10.", detailPage: "dogs/A552204.html" },
+   { name: "Bluey", urgency: "", id: "A5786029", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DaLbtngHbtN/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5786029.jpg", tempNotes: "1yo male 35lbs. Part of 10-sibling surrender group, being brought in slowly as shelter is packed.", medNotes: "", detailPage: "dogs/A5786029.html" },
+   { name: "Mickey", urgency: "", id: "A5786033", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "", igLink: "https://www.instagram.com/p/DaLbtngHbtN/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5786033.jpg", tempNotes: "1yo male 36lbs. Bluey's brother. Part of 10-sibling surrender group.", medNotes: "", detailPage: "dogs/A5786033.html" },
+   { name: "Iris", urgency: "Euthanasia deadline (no specific date - LA County refuses to publish deadlines)", id: "A5782378", city: "Baldwin Park", state: "CA", shelter: "Baldwin Park Animal Care Center (LA County)", sourceLink: "https://animalcare.lacounty.gov/dacc-details/?animalId=A5782378", igLink: "https://www.instagram.com/p/DaHEHYJDInH/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5782378.jpg", tempNotes: "Surrendered trembling & terrified. 2yo female, 34lbs, intact.", medNotes: "", detailPage: "dogs/A5782378.html" },
+   { name: "Rookie", urgency: "", id: "A845830", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "https://www.instagram.com/reel/DaFAySmvZ7o/", igLink: "https://www.instagram.com/p/DaFAySmvZ7o/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A845830.jpg", tempNotes: "2yo male ACD. Rescue only. Kennel mate altercation - not his fault. Loving and affectionate once engaged.", medNotes: "Unaltered male", detailPage: "dogs/A845830.html" },
+   { name: "Ghost", urgency: "", id: "A5782953", city: "Palmdale", state: "CA", shelter: "Palmdale Animal Care Center", sourceLink: "https://www.instagram.com/p/DaCSl60DdlN/", igLink: "", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5782953.jpg", tempNotes: "5-6 months old, 13lbs, spayed female. Scared & sweet girl pupper. Itty bitty white heeler.", medNotes: "Spayed", detailPage: "dogs/A5782953.html" },
+   { name: "Gracie", urgency: "", id: "A831945", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter (San Bernardino County Animal Care)", sourceLink: "https://24Petconnect.com/DetailsMain/SBCO1/A831945", igLink: "https://www.instagram.com/p/DZ79ubwDjFz/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A831945.jpg", tempNotes: "Female, 1 year old, intact. Returned/surrendered with sister Kitana June 16 2026. Originally adopted from Devore Nov 2025.", medNotes: "Intact - not spayed", detailPage: "dogs/A831945.html" },
+   { name: "Kitana", urgency: "", id: "A831946", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter (San Bernardino County Animal Care)", sourceLink: "https://24Petconnect.com/DetailsMain/SBCO1/A831946", igLink: "https://www.instagram.com/p/DZ79ubwDjFz/", photo: "", tempNotes: "Female, 1 year old, spayed. Sister of Gracie. Returned/surrendered with Gracie June 16 2026. Originally adopted from Devore Nov 2025.", medNotes: "", detailPage: "dogs/A831946.html" },
+   { name: "Reese", urgency: "", id: "A845334", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter (San Bernardino County Animal Care)", sourceLink: "https://24Petconnect.com/DetailsMain/SBCO1/A845334", igLink: "https://www.instagram.com/p/DZ79ubwDjFz/", photo: "", tempNotes: "Female, 2 years old, intact. Intake June 11 2026.", medNotes: "Intact - not spayed", detailPage: "dogs/A845334.html" },
+   { name: "Kody", urgency: "61139090", id: "TX", city: "", state: "TX", shelter: "https://www.instagram.com/p/DZnZPnenXIm/", sourceLink: "", igLink: "", photo: "", tempNotes: "", medNotes: "", detailPage: "dogs/TX.html" },
+   { name: "Prescott", urgency: "", id: "OK", city: "Stillwater Animal Welfare", state: "OK", shelter: "https://www.instagram.com/p/DZlmQtdjJ4I/", sourceLink: "", igLink: "", photo: "", tempNotes: "", medNotes: "", detailPage: "dogs/OK.html" },
+   { name: "Allie", urgency: "23674", id: "GA", city: "Walton County Animal Control", state: "GA", shelter: "", sourceLink: "", igLink: "", photo: "", tempNotes: "", medNotes: "", detailPage: "dogs/GA.html" },
+   { name: "", urgency: "A188423", id: "KS", city: "Wichita Police Department Animal Shelter", state: "KS", shelter: "https://www.instagram.com/p/DaBWuwcHWvW/", sourceLink: "", igLink: "", photo: "", tempNotes: "", medNotes: "", detailPage: "dogs/KS.html" }
 ]; // DOGS_END
 
 function isUrgent(dog) {
-  return dog.urgency && dog.urgency.toLowerCase().includes('urgent');
+  return dog.urgency && /urgent|eligible/i.test(dog.urgency);
 }
 
 function getShareText(dog) {
@@ -162,15 +181,10 @@ function getShareText(dog) {
   return encodeURIComponent(urgentTag + name + dog.id + ' · ' + dog.city + ', ' + dog.state + ' · ' + dog.shelter + ' · ACD/Heeler mix needs rescue NOW #SaveAHeeler #AustralianCattleDog');
 }
 
-function getPageUrl() {
-  return encodeURIComponent(window.location.href);
-}
-
 function shareButtons(dog) {
   const text = getShareText(dog);
   const safeId = (dog.id || '').replace(/\//g, '-');
-  const vParam = safeId === 'A5784245' ? '?v=2' : '';
-  const url = encodeURIComponent(`https://noheelerleftbehind.github.io/UrgentHeelers/dogs/${safeId}.html${vParam}`);
+  const url = encodeURIComponent(`https://noheelerleftbehind.github.io/UrgentHeelers/dogs/${safeId}.html`);
   const igLink = dog.igLink || '';
   return `
     <a class="share-btn btn-x" href="https://twitter.com/intent/tweet?text=${text}&url=${url}" target="_blank" rel="noopener">𝕏 Post</a>
@@ -235,10 +249,7 @@ function filterDogs() {
 }
 
 function openModal(idx) {
- const dogs = [ // DOGS_START filtered[idx  { name: "Iris", urgency: "Euthanasia deadline (no specific date - LA County refuses to publish deadlines)", id: "A5782378", city: "Baldwin Park", state: "CA", shelter: "Baldwin Park Animal Care Center (LA County)", sourceLink: "https://animalcare.lacounty.gov/dacc-details/?animalId=A5782378", igLink: "https://www.instagram.com/p/DaHEHYJDInH/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A5782378.jpg", tempNotes: "Surrendered trembling & terrified. 2yo female, 34lbs, intact. Mentioned as cattle dog in caption.", medNotes: "" },
-,
-  { name: "Rookie", urgency: "SCHEDULED FOR EUTHANASIA 6/28/26 at 2pm - RESCUE ONLY", id: "A845830", city: "San Bernardino", state: "CA", shelter: "Devore Animal Shelter", sourceLink: "https://www.instagram.com/reel/DaFAySmvZ7o/", igLink: "https://www.instagram.com/reel/DaFAySmvZ7o/", photo: "https://noheelerleftbehind.github.io/UrgentHeelers/photos/A845830.jpg", tempNotes: "2yo male ACD. Rescue only. Kennel mate altercation - not his fault. Loving and affectionate once engaged.", medNotes: "Unaltered male" }
-];
+  const dog = filtered[idx];
   const urgent = isUrgent(dog);
 
   document.getElementById('modalName').innerHTML = (urgent ? '<span class="urgent-badge">⚠ Urgent</span><br>' : '') + dog.name;
