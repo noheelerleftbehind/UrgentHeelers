@@ -163,6 +163,7 @@ async function main() {
         const rowState = (row[C.state] || '').trim();
         const id = rawId || (name && rowState ? (name + '-' + rowState).replace(/[^a-zA-Z0-9-_]/g, '-') : '');
         if (!id || seen.has(id)) continue;
+        if (name === 'REMOVED') continue;
         seen.add(id);
 
         const safeId = id.replace(/[^a-zA-Z0-9-_]/g, '-');
