@@ -211,10 +211,13 @@ async function main() {
     }).join(',\n');
 
     let html = fs.readFileSync('index.html', 'utf8');
-    html = html.replace(
-      /const dogs = \[.*?\/\/ DOGS_START[\s\S]*?\/\/ DOGS_END\s*\];/,
-      `const dogs = [ // DOGS_START\n${dogsJs}\n]; // DOGS_END`
-    );
+    // robust marker-based replace
+    const startMarker = 'const dogs = [ // DOGS_START';
+    const endMarker = ']; // DOGS_END';
+    const si = html.indexOf(startMarker);
+    const ei = html.indexOf(endMarker);
+    if (si === -1 || ei === -1) throw new Error('Could not find DOGS markers in index.html');
+    html = html.slice(0, si) + startMarker + '\n' + dogsJs + '\n' + endMarker + html.slice(ei + endMarker.length);
     fs.writeFileSync('index.html', html, 'utf8');
 
     console.log(`\n✅ Done — ${dogs.length} dogs written to site.`);
