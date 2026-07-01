@@ -1,0 +1,39 @@
+name: Download Dog Photo
+
+on:
+  workflow_dispatch:
+    inputs:
+      shelter_id:
+        description: 'Shelter Animal ID (used as filename)'
+        required: true
+      photo_url:
+        description: 'Source photo URL to download'
+        required: true
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download photo
+        run: |
+          SAFE_ID=$(echo "${{ github.event.inputs.shelter_id }}" | sed 's/[^a-zA-Z0-9_-]/-/g')
+          DEST="photos/${SAFE_ID}.jpg"
+          echo "Downloading ${{ github.event.inputs.photo_url }} → $DEST"
+          curl -L --max-time 30 --retry 3 \
+            -H "User-Agent: Mozilla/5.0" \
+            "${{ github.event.inputs.photo_url }}" \
+            -o "$DEST"
+          ls -lh "$DEST"
+
+      - name: Commit and push
+        run: |
+          SAFE_ID=$(echo "${{ github.event.inputs.shelter_id }}" | sed 's/[^a-zA-Z0-9_-]/-/g')
+          git config user.name "NHLB Bot"
+          git config user.email "noheelerleftbehind@gmail.com"
+          git add "photos/${SAFE_ID}.jpg"
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "Add photo for ${SAFE_ID} [skip ci]"
+          git push
