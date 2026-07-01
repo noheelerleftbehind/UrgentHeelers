@@ -246,7 +246,7 @@ function renderCards(list) {
       ? `<div class="card-notes">${[dog.tempNotes, dog.medNotes].filter(Boolean).join(' · ')}</div>`
       : '';
     return `
-      <div class="card" onclick="openModal('${dog.id.replace(/'/g, '\\'')}')">
+      <div class="card" onclick="openModal('${dog.id}')">
         ${imgHtml}
         <div class="card-body">
           ${urgent ? '<span class="urgent-badge">⚠ Urgent</span>' : ''}
